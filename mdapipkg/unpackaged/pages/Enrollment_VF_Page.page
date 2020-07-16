@@ -1,0 +1,49 @@
+<apex:page Controller="SearchEnrollmentVFController">
+    <script type="text/javascript">
+    window.onload=function() {
+        // document.getElementById("{!$Component.thePb.thepbs.accName}").focus();
+    }   
+    </script>
+    <apex:form >
+        <apex:pageBlock id="thePb" title="User/Contact Details To Search">
+            <apex:pageblockSection id="thepbs">
+                <apex:inputField value="{!stud.Name__c}" required="false" id="userName"/>
+                <apex:inputfield value="{!stud.Email__c}"/>
+                <apex:inputfield value="{!stud.Username__c}"/>                
+            </apex:pageblockSection>
+            <apex:pageblockButtons location="bottom">
+                <apex:commandButton value="Search" action="{!searchEnroll}" />
+                <apex:commandButton value="Clear records" action="{!clear}"/>
+            </apex:pageblockButtons>  
+        </apex:pageBlock>
+        
+        <apex:pageBlock title="Enrollment Details" id="noRec" rendered="{! IF( enrollmentList != null && enrollmentList.size ==0 , true, false)}" >
+            <apex:outputPanel >
+                <h1>No Records Found </h1>
+            </apex:outputPanel>
+        </apex:pageBlock>
+        
+        
+        <apex:pageBlock title="Enrollment Details" id="details" rendered="{! IF( enrollmentList != null && enrollmentList.size >0, true, false)}" >
+            
+            <apex:pageBlockTable value="{!enrollmentList}" var="a">
+                <apex:column headerValue="Name">
+                    <apex:outputLink target="_blank" value="/{!a.id}">{!a.Name}</apex:outputLink> 
+                </apex:column>   
+                <apex:column value="{!a.Course__r.Name__c}" headerValue="Course"/>  
+                <apex:column value="{!a.status__c}" headerValue="Status"/>  
+                <apex:column value="{!a.dateEnrolled__c}" headerValue="Enrollment date"/>  
+                <apex:column value="{!a.dateCompleted__c}" headerValue="Completion date"/>   
+            </apex:pageBlockTable>
+            
+            <apex:pageblockButtons >
+                <apex:commandButton value="First Page" rerender="details" action="{!FirstPage}" disabled="{!prev}"/>
+                <apex:commandButton value="Previous" rerender="details" action="{!previous}" disabled="{!prev}"/>
+                <apex:commandButton value="Next" rerender="details" action="{!next}" disabled="{!nxt}"/>
+                <apex:commandButton value="Last Page" rerender="details" action="{!LastPage}" disabled="{!nxt}"/>
+            </apex:pageblockButtons>
+            
+        </apex:pageBlock>
+        
+    </apex:form>
+</apex:page>

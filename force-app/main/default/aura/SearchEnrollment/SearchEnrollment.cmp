@@ -1,0 +1,18 @@
+<!--The controller="SearchEnrollment" attribute of the <aura:component> tag registers that this component may make server-side action calls to the SearchEnrollment Apex class-->
+<aura:component controller="SearchEnrollment" implements="force:appHostable,flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+
+    <!--The <aura:registerEvent> tag registers that this component may fire the c:EnrollmentLoaded event-->
+    <aura:registerEvent name="enrollmentsLoaded" type="c:EnrollmentLoaded"/>
+    <aura:handler name="init" value="{!this}" action="{!c.onInit}"/>
+    <aura:attribute name="searchTerm" type="String"/>
+    <lightning:card title="Enrollment Search by User/Contact details" iconName="standard:search">
+        <div class="slds-form slds-p-around_x-small">
+            <lightning:input
+                label="Search"
+                variant="label-hidden"
+                value="{!v.searchTerm}"
+                placeholder="Search by name or email or username"
+                onchange="{!c.onSearchTermChange}"/>     <!--The onchange attribute of the <lightning:input> tag means when the search term changes then the onSearchTermChange client-side controller action is called-->
+        </div>
+    </lightning:card>
+</aura:component>

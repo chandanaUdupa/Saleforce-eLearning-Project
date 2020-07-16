@@ -1,0 +1,23 @@
+<!--This is the main component to include search component and list component-->
+
+<!--The force:appHostable interface means this component can be displayed in a custom tab-->
+<aura:component implements="force:appHostable,flexipage:availableForAllPageTypes" access="global">
+    <lightning:layout horizontalAlign="space" multipleRows="true">
+        <lightning:layoutItem size="12"
+                              mediumDeviceSize="12"
+                              padding="around-small">
+            <div class="slds-box slds-theme_default">
+				<!--Search component-->
+                <c:SearchEnrollment/>
+            </div>
+        </lightning:layoutItem>
+        <lightning:layoutItem size="12"
+                              mediumDeviceSize="12"
+                              padding="around-small">
+            <div class="slds-box slds-theme_default">
+            <!--List component-->    
+            <c:EnrollmentList/>
+            </div>
+        </lightning:layoutItem>
+    </lightning:layout>
+</aura:component>
